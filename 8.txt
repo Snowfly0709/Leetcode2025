@@ -1,0 +1,38 @@
+class Solution {
+    public int myAtoi(String s) {
+        if (!(s.contains("0")||s.contains("1")||s.contains("2")||s.contains("3")||s.contains("4")||s.contains("5")||s.contains("6")||s.contains("7")||s.contains("8")||s.contains("9"))){
+            return 0;
+        }
+        int i = 0;
+        String res = "";
+        while(s.charAt(i) == ' '){
+            i += 1;
+        }
+        if(s.charAt(i) == '-'||s.charAt(i) == '+'){
+            i += 1;
+        }
+        while(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
+            if(i>=1&&s.charAt(i-1) == '-'){
+                res = "-";
+            }
+            res += s.charAt(i);
+            i += 1;
+            if(i==s.length()){
+                break;
+            }
+        }
+        if (!res.equals("")) {
+            try {
+                return Integer.parseInt(res);
+            } catch (NumberFormatException e) {
+                if (res.charAt(0) == '-') {
+                    return -Integer.MAX_VALUE-1;
+                } else {
+                    return Integer.MAX_VALUE;
+                }
+            }
+        }else{
+            return 0;
+        }
+    }
+}

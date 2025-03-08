@@ -1,0 +1,62 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashMap<int[], Integer> sudoku = new HashMap<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                int temp = 0;
+                int[] position = new int[3];
+                int block = 0;
+                if (board[i][j] != '.') {
+                    temp = board[i][j] - 48;
+                }
+                if (i <= 2) {
+                    if (j <= 2) {
+                        block = 1;
+                    }
+                    if (3 <= j && j <= 5) {
+                        block = 2;
+                    }
+                    if (6 <= j && j <= 8) {
+                        block = 3;
+                    }
+                }
+                if (3 <= i && i <= 5) {
+                    if (j <= 2) {
+                        block = 4;
+                    }
+                    if (3 <= j && j <= 5) {
+                        block = 5;
+                    }
+                    if (6 <= j && j <= 8) {
+                        block = 6;
+                    }
+                }
+                if (6 <= i && i <= 8) {
+                    if (j <= 2) {
+                        block = 7;
+                    }
+                    if (3 <= j && j <= 5) {
+                        block = 8;
+                    }
+                    if (6 <= j && j <= 8) {
+                        block = 9;
+                    }
+                }
+                position[0] = i;
+                position[1] = j;
+                position[2] = block;
+                for (Map.Entry<int[], Integer> entry : sudoku.entrySet()) {
+                    if (temp!=0&&entry.getValue().equals(temp)) {
+                        //查找value等于3所对应的key值
+                        int[] check = entry.getKey();
+                        if(check[0]==position[0] || check[1]==position[1] || check[2]==position[2]){
+                            return false;
+                        }
+                    }
+                }
+                sudoku.put(position,temp);
+            }
+        }
+        return true;
+    }
+}

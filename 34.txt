@@ -1,0 +1,51 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int leftInd = -1;
+        int rightInd = nums.length;
+        if (nums.length == 0){
+            return new int[]{-1,-1};
+        } 
+        if (nums.length == 1){
+            if(nums[0] == target){
+                return new int[]{0,0};
+            } else {
+                return new int[]{-1,-1};
+            }
+        }
+        if (target < nums[0] || target > nums[nums.length-1]){
+            return new int[]{-1,-1};
+        } 
+        int l = 0;
+        int r = nums.length-1;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(nums[mid]>target){
+                r = mid - 1;
+            } 
+            if(nums[mid]<=target){
+                l = mid + 1;
+            }
+            if(nums[mid] == target && mid > leftInd){
+                leftInd = mid;
+            }
+        }
+        l = 0;
+        r = nums.length-1;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(nums[mid]>=target){
+                r = mid - 1;
+            }
+            if(nums[mid]<target){
+                l = mid + 1;
+            }
+            if(nums[mid] == target && mid <rightInd){
+                rightInd = mid;
+            }
+        }
+        if(rightInd != nums.length || leftInd != -1){
+            return new int[]{rightInd,leftInd};
+        }
+        return new int[]{-1,-1};
+    }
+}

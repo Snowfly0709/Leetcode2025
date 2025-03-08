@@ -1,0 +1,32 @@
+class Solution {
+    public int minNumberOfFrogs(String croakOfFrogs) {
+        int curCroak=0, maxCroak=0;
+        int c=0,r=0,o=0,a=0,k=0;
+        for(char chr : croakOfFrogs.toCharArray()) {
+        	if(chr=='c') {
+        		c++;
+        		curCroak++;
+        		maxCroak=Math.max(maxCroak, curCroak);
+        	}else if(chr=='r') {
+        		r++;
+        	}else if(chr=='o') {
+        		o++;
+        	}else if(chr=='a') {
+        		a++;
+        	}else if(chr=='k') {
+        		k++;
+        		curCroak--;
+        	}
+
+            if(r>c || o>r || a>o || k>a){
+                return -1;
+            }
+        }
+        
+        if(c==r && r==o && o==a && a==k && k==c) {
+        	return maxCroak;
+        }else {
+        	return -1;
+        }
+    }
+}
